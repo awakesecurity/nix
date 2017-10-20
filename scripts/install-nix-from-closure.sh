@@ -29,9 +29,13 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
         exit 1
     fi
 
-    printf '\e[1;31mSwitching to the Multi-User Darwin Installer\e[0m\n'
-    exec "$self/install-darwin-multi-user"
-    exit 0
+    read -p "Would you like to install multi-user Nix for Darwin? " -n 1 -r MULTI_USER
+    echo
+    if [[ $MULTI_USER =~ ^[Yy]$ ]]; then
+        printf '\e[1;31mSwitching to the Multi-User Darwin Installer\e[0m\n'
+        exec "$self/install-darwin-multi-user"
+        exit 0
+    fi
 fi
 
 if [ "$(id -u)" -eq 0 ]; then
